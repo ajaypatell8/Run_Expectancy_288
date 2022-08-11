@@ -1,4 +1,11 @@
+library(dplyr)
+
 re288_code <- function(pbp) {
+  
+  #add count variable
+  pbp <- pbp %>% 
+    mutate(count = paste(balls, strikes, 
+                         sep = "-"))
   
   re288 <- pbp %>% 
     mutate(expected_runs = case_when(
