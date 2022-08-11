@@ -1,0 +1,393 @@
+re288_code <- function(pbp) {
+  
+  re288 <- pbp %>% 
+    mutate(expected_runs = case_when(
+      #0-0, no one on 
+      (count == "0-0" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.51,
+      (count == "0-0" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.27,
+      (count == "0-0" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.10,
+      #1-0, no one on 
+      (count == "1-0" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.55,
+      (count == "1-0" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.30,
+      (count == "1-0" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.12,
+      #2-0, no one on 
+      (count == "2-0" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.61,
+      (count == "2-0" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.35,
+      (count == "2-0" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.14,
+      #3-0, no one on 
+      (count == "3-0" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.74,
+      (count == "3-0" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.43,
+      (count == "3-0" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.18,
+      #0-1, no one on 
+      (count == "0-1" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.47,
+      (count == "0-1" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.24,
+      (count == "0-1" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.09,
+      #1-1, no one on 
+      (count == "1-1" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.50,
+      (count == "1-1" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.26,
+      (count == "1-1" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.10,
+      #2-1, no one on 
+      (count == "2-1" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.55,
+      (count == "2-1" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.30,
+      (count == "2-1" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.12,
+      #3-1, no one on 
+      (count == "3-1" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.67,
+      (count == "3-1" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.38,
+      (count == "3-1" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.16,
+      #0-2, no one on 
+      (count == "0-2" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.42,
+      (count == "0-2" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.21,
+      (count == "0-2" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.06,
+      #1-2, no one on 
+      (count == "1-2" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.44,
+      (count == "1-2" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.22,
+      (count == "1-2" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.07,
+      #2-2, no one on 
+      (count == "2-2" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.48,
+      (count == "2-2" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.25,
+      (count == "2-2" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.09,
+      #3-2, no one on
+      (count == "3-2" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.59,
+      (count == "3-2" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.32,
+      (count == "3-2" & is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.12,
+      #0-0, runner on 1st 
+      (count == "0-0" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.90,
+      (count == "0-0" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.53,
+      (count == "0-0" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.23,
+      #1-0, runner on 1st 
+      (count == "1-0" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.96,
+      (count == "1-0" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.57,
+      (count == "1-0" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.26,
+      #2-0, runner on 1st 
+      (count == "2-0" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.07,
+      (count == "2-0" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.64,
+      (count == "2-0" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.30,
+      #3-0, runner on 1st 
+      (count == "3-0" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.25,
+      (count == "3-0" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.77,
+      (count == "3-0" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.37,
+      #0-1, runner on 1st 
+      (count == "0-1" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.84,
+      (count == "0-1" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.48,
+      (count == "0-1" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.19,
+      #1-1, runner on 1st 
+      (count == "1-1" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.89,
+      (count == "1-1" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.51,
+      (count == "1-1" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.21,
+      #2-1, runner on 1st 
+      (count == "2-1" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.98,
+      (count == "2-1" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.57,
+      (count == "2-1" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.24,
+      #3-1, runner on 1st 
+      (count == "3-1" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.15,
+      (count == "3-1" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.69,
+      (count == "3-1" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.32,
+      #0-2, runner on 1st 
+      (count == "0-2" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.76,
+      (count == "0-2" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.41,
+      (count == "0-2" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.14,
+      #1-2, runner on 1st 
+      (count == "1-2" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.80,
+      (count == "1-2" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.43,
+      (count == "1-2" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.16,
+      #2-2, runner on 1st 
+      (count == "2-2" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.87,
+      (count == "2-2" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.49,
+      (count == "2-2" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.18,
+      #3-2, runner on 1st
+      (count == "3-2" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.03,
+      (count == "3-2" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.60,
+      (count == "3-2" & !is.na(on_1b) & is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.25,
+      #0-0, runner on 2nd 
+      (count == "0-0" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.15,
+      (count == "0-0" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.69,
+      (count == "0-0" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.32,
+      #1-0, runner on 2nd 
+      (count == "1-0" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.20,
+      (count == "1-0" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.73,
+      (count == "1-0" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.35,
+      #2-0, runner on 2nd 
+      (count == "2-0" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.25,
+      (count == "2-0" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.79,
+      (count == "2-0" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.38,
+      #3-0, runner on 2nd 
+      (count == "3-0" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.38,
+      (count == "3-0" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.85,
+      (count == "3-0" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.41,
+      #0-1, runner on 2nd 
+      (count == "0-1" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.10,
+      (count == "0-1" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.63,
+      (count == "0-1" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.27,
+      #1-1, runner on 2nd 
+      (count == "1-1" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.13,
+      (count == "1-1" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.67,
+      (count == "1-1" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.31,
+      #2-1, runner on 2nd 
+      (count == "2-1" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.20,
+      (count == "2-1" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.72,
+      (count == "2-1" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.34,
+      #3-1, runner on 2nd 
+      (count == "3-1" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.30,
+      (count == "3-1" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.79,
+      (count == "3-1" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.39,
+      #0-2, runner on 2nd 
+      (count == "0-2" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 0.99,
+      (count == "0-2" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.55,
+      (count == "0-2" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.19,
+      #1-2, runner on 2nd 
+      (count == "1-2" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.03,
+      (count == "1-2" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.58,
+      (count == "1-2" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.22,
+      #2-2, runner on 2nd 
+      (count == "2-2" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.09,
+      (count == "2-2" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.63,
+      (count == "2-2" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.27,
+      #3-2, runner on 2nd
+      (count == "3-2" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.18,
+      (count == "3-2" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.71,
+      (count == "3-2" & is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.32,
+      #0-0, runner on 1st and 2nd 
+      (count == "0-0" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.50,
+      (count == "0-0" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.93,
+      (count == "0-0" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.44,
+      #1-0, runner on 1st and 2nd 
+      (count == "1-0" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.58,
+      (count == "1-0" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 1.00,
+      (count == "1-0" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.49,
+      #2-0, runner on 1st and 2nd 
+      (count == "2-0" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.74,
+      (count == "2-0" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 1.10,
+      (count == "2-0" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.57,
+      #3-0, runner on 1st and 2nd 
+      (count == "3-0" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.98,
+      (count == "3-0" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 1.33,
+      (count == "3-0" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.68,
+      #0-1, runner on 1st and 2nd 
+      (count == "0-1" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.41,
+      (count == "0-1" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.86,
+      (count == "0-1" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.38,
+      #1-1, runner on 1st and 2nd 
+      (count == "1-1" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.47,
+      (count == "1-1" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.91,
+      (count == "1-1" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.41,
+      #2-1, runner on 1st and 2nd 
+      (count == "2-1" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.57,
+      (count == "2-1" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 1.00,
+      (count == "2-1" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.49,
+      #3-1, runner on 1st and 2nd 
+      (count == "3-1" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.83,
+      (count == "3-1" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 1.21,
+      (count == "3-1" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.61,
+      #0-2, runner on 1st and 2nd 
+      (count == "0-2" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.31,
+      (count == "0-2" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.76,
+      (count == "0-2" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.26,
+      #1-2, runner on 1st and 2nd 
+      (count == "1-2" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.34,
+      (count == "1-2" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.80,
+      (count == "1-2" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.31,
+      #2-2, runner on 1st and 2nd 
+      (count == "2-2" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.41,
+      (count == "2-2" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 0.86,
+      (count == "2-2" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.38,
+      #3-2, runner on 1st and 2nd
+      (count == "3-2" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 0) ~ 1.64,
+      (count == "3-2" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 1) ~ 1.06,
+      (count == "3-2" & !is.na(on_1b) & !is.na(on_2b) & is.na(on_3b) & outs_when_up == 2) ~ 0.49,
+      #0-0, runner on third 
+      (count == "0-0" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.38,
+      (count == "0-0" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 0.97,
+      (count == "0-0" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.36,
+      #1-0, runner on third 
+      (count == "1-0" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.44,
+      (count == "1-0" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.00,
+      (count == "1-0" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.39,
+      #2-0, runner on third 
+      (count == "2-0" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.48,
+      (count == "2-0" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.05,
+      (count == "2-0" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.43,
+      #3-0, runner on third 
+      (count == "3-0" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.60,
+      (count == "3-0" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.13,
+      (count == "3-0" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.49,
+      #0-1, runner on third 
+      (count == "0-1" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.33,
+      (count == "0-1" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 0.90,
+      (count == "0-1" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.32,
+      #1-1, runner on third 
+      (count == "1-1" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.37,
+      (count == "1-1" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 0.93,
+      (count == "1-1" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.34,
+      #2-1, runner on third 
+      (count == "2-1" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.41,
+      (count == "2-1" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 0.99,
+      (count == "2-1" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.38,
+      #3-1, runner on third 
+      (count == "3-1" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.52,
+      (count == "3-1" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.06,
+      (count == "3-1" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.45,
+      #0-2, runner on third 
+      (count == "0-2" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.23,
+      (count == "0-2" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 0.77,
+      (count == "0-2" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.23,
+      #1-2, runner on third 
+      (count == "1-2" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.26,
+      (count == "1-2" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 0.80,
+      (count == "1-2" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.26,
+      #2-2, runner on third 
+      (count == "2-2" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.34,
+      (count == "2-2" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 0.86,
+      (count == "2-2" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.31,
+      #3-2, runner on third
+      (count == "3-2" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.43,
+      (count == "3-2" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 0.95,
+      (count == "3-2" & is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.37,
+      #0-0, runner on first and third 
+      (count == "0-0" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.78,
+      (count == "0-0" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.21,
+      (count == "0-0" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.50,
+      #1-0, runner on first and third 
+      (count == "1-0" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.85,
+      (count == "1-0" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.24,
+      (count == "1-0" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.55,
+      #2-0, runner on first and third 
+      (count == "2-0" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.91,
+      (count == "2-0" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.33,
+      (count == "2-0" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.63,
+      #3-0, runner on first and third 
+      (count == "3-0" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.08,
+      (count == "3-0" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.44,
+      (count == "3-0" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.73,
+      #0-1, runner on first and third 
+      (count == "0-1" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.68,
+      (count == "0-1" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.13,
+      (count == "0-1" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.42,
+      #1-1, runner on first and third 
+      (count == "1-1" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.74,
+      (count == "1-1" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.18,
+      (count == "1-1" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.47,
+      #2-1, runner on first and third 
+      (count == "2-1" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.82,
+      (count == "2-1" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.25,
+      (count == "2-1" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.54,
+      #3-1, runner on first and third 
+      (count == "3-1" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.98,
+      (count == "3-1" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.36,
+      (count == "3-1" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.67,
+      #0-2, runner on first and third 
+      (count == "0-2" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.56,
+      (count == "0-2" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 0.98,
+      (count == "0-2" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.31,
+      #1-2, runner on first and third 
+      (count == "1-2" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.60,
+      (count == "1-2" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.03,
+      (count == "1-2" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.37,
+      #2-2, runner on first and third 
+      (count == "2-2" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.67,
+      (count == "2-2" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.09,
+      (count == "2-2" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.44,
+      #3-2, runner on first and third
+      (count == "3-2" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.86,
+      (count == "3-2" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.24,
+      (count == "3-2" & !is.na(on_1b) & is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.54,
+      #0-0, runner on second and third 
+      (count == "0-0" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.98,
+      (count == "0-0" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.37,
+      (count == "0-0" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.57,
+      #1-0, runner on second and third 
+      (count == "1-0" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.03,
+      (count == "1-0" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.42,
+      (count == "1-0" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.62,
+      #2-0, runner on second and third 
+      (count == "2-0" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.09,
+      (count == "2-0" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.48,
+      (count == "2-0" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.68,
+      #3-0, runner on second and third 
+      (count == "3-0" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.19,
+      (count == "3-0" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.54,
+      (count == "3-0" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.75,
+      #0-1, runner on second and third 
+      (count == "0-1" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.91,
+      (count == "0-1" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.28,
+      (count == "0-1" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.48,
+      #1-1, runner on second and third 
+      (count == "1-1" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.95,
+      (count == "1-1" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.32,
+      (count == "1-1" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.53,
+      #2-1, runner on second and third 
+      (count == "2-1" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.99,
+      (count == "2-1" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.39,
+      (count == "2-1" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.57,
+      #3-1, runner on second and third 
+      (count == "3-1" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.11,
+      (count == "3-1" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.48,
+      (count == "3-1" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.69,
+      #0-2, runner on second and third 
+      (count == "0-2" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.77,
+      (count == "0-2" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.10,
+      (count == "0-2" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.35,
+      #1-2, runner on second and third 
+      (count == "1-2" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.81,
+      (count == "1-2" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.17,
+      (count == "1-2" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.39,
+      #2-2, runner on second and third 
+      (count == "2-2" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.85,
+      (count == "2-2" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.22,
+      (count == "2-2" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.44,
+      #3-2, runner on second and third
+      (count == "3-2" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 1.97,
+      (count == "3-2" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.33,
+      (count == "3-2" & is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.54,
+      #0-0, bases loaded 
+      (count == "0-0" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.32,
+      (count == "0-0" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.57,
+      (count == "0-0" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.76,
+      #1-0, bases loaded 
+      (count == "1-0" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.40,
+      (count == "1-0" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.68,
+      (count == "1-0" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.90,
+      #2-0, bases loaded 
+      (count == "2-0" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.52,
+      (count == "2-0" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.82,
+      (count == "2-0" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 1.05,
+      #3-0, bases loaded 
+      (count == "3-0" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.89,
+      (count == "3-0" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 2.15,
+      (count == "3-0" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 1.38,
+      #0-1, bases loaded 
+      (count == "0-1" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.21,
+      (count == "0-1" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.43,
+      (count == "0-1" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.62,
+      #1-1, bases loaded 
+      (count == "1-1" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.27,
+      (count == "1-1" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.53,
+      (count == "1-1" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.74,
+      #2-1, bases loaded 
+      (count == "2-1" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.46,
+      (count == "2-1" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.68,
+      (count == "2-1" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.89,
+      #3-1, bases loaded 
+      (count == "3-1" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.63,
+      (count == "3-1" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.91,
+      (count == "3-1" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 1.18,
+      #0-2, bases loaded 
+      (count == "0-2" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.08,
+      (count == "0-2" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.27,
+      (count == "0-2" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.46,
+      #1-2, bases loaded 
+      (count == "1-2" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.09,
+      (count == "1-2" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.34,
+      (count == "1-2" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.54,
+      #2-2, bases loaded 
+      (count == "2-2" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.26,
+      (count == "2-2" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.46,
+      (count == "2-2" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.67,
+      #3-2, bases loaded
+      (count == "3-2" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 0) ~ 2.59,
+      (count == "3-2" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 1) ~ 1.78,
+      (count == "3-2" & !is.na(on_1b) & !is.na(on_2b) & !is.na(on_3b) & outs_when_up == 2) ~ 0.92
+    ))
+  
+  return(re288)
+  
+}
